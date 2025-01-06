@@ -30,11 +30,11 @@
 
 
 
-![tmpbncycand](C:\Users\刘佳豪\Pictures\Saved Pictures\tmpbncycand.PNG)
+![tmpbncycand](./source/237_old.png)
 
 **-->**
 
-![tmpsw6c1y9d](C:\Users\刘佳豪\Pictures\Saved Pictures\tmpsw6c1y9d.PNG)
+![tmpsw6c1y9d](./source/237_new.png)
 
 **-->**
 
@@ -44,11 +44,11 @@
 
 强化任务只有“强化成功”“强化失败”两种情况，可只检测两种情况中某个像素不同的点，加快速度：
 
-![屏幕截图 2025-01-06 004109](C:\Users\刘佳豪\Pictures\Screenshots\屏幕截图 2025-01-06 004109.png)
+![屏幕截图 2025-01-06 004109](./source/success.png)
 
 #### vs
 
-![屏幕截图 2025-01-06 004118](C:\Users\刘佳豪\Pictures\Screenshots\屏幕截图 2025-01-06 004118.png)
+![屏幕截图 2025-01-06 004118](./source/fail.png)
 
 
 
