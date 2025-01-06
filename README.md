@@ -54,9 +54,45 @@
 
 **237 = int("237")**
 
+```python
+def getText(box, font_color=None):
+    image = screenshot()
+    # image = PIL.Image.open(r"C:\Users\xxx\Pictures\Screenshots\1.png")
+    image = image.crop(box)
+    # image.show()
+    image = image.convert('RGB')
+    tolerance = 20
+    image = np.array(image)
+    # print(image.shape)
+    if font_color != None:
+        image = 255*np.ones_like(image) * (np.mean(abs(image - font_color), axis=2, keepdims=True) < tolerance)
+
+    new_image = PIL.Image.fromarray(image)
+    new_image.convert('L')
+    # new_image.show()
+    config = '--psm 6 --oem 1'
+
+    return pytesseract.image_to_string(new_image, config=config)
+```
+
 ### 2.对于强化任务，只检测一个像素
 
 强化任务只有“强化成功”“强化失败”两种情况，可只检测两种情况中某个像素不同的点，加快速度：
+
+```python
+def getPixel(point):
+    sleep(0.05)
+    img = screenshot()
+    return img.getpixel(point)
+```
+
+```python
+def isSameColor(c1, c2, tolerance=20):
+    sum = 0
+    for i in range(3):
+        sum += abs(c1[i] - c2[i])
+    return sum <= 3 * tolerance
+```
 
 ![屏幕截图 2025-01-06 004109](./source/success.png)
 
@@ -64,7 +100,15 @@
 
 ![屏幕截图 2025-01-06 004118](./source/fail.png)
 
+## 完成：
 
+![屏幕截图 2025-01-06 004118](./source/1.jpg)
+
+
+
+代码：
+
+https://github.com/PUBGprofessor/GameTools.git
 
 ## 参考文献：
 
