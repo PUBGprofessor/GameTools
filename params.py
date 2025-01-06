@@ -4,7 +4,7 @@ import pytesseract
 import PIL
 
 window_A = (721, 211)
-color = {"橙黄": (244, 147, 49), "白色": (255, 255, 255), "黑色" : (0, 0, 0)}
+color = {"橙黄": (244, 147, 49), "白色": (255, 255, 255), "黑色" : (0, 0, 0), "玄铁": (152, 152, 152)}
 
 def getText(box, font_color=None):
     image = screenshot()
@@ -144,3 +144,31 @@ class BAG:
 
     def getATK(self):
         return int(getText(self.ATK_box, color["橙黄"]))
+
+class SHOP:
+    def __init__(self):
+        self.iron_point = [(window_A[0] + 464, window_A[1] + 332),
+                           (window_A[0] + 464 + 151, window_A[1] + 332),
+                           (window_A[0] + 464 + 151 + 158, window_A[1] + 332)]
+        self.buy_point1 = (window_A[0] + 457, window_A[1] + 433)
+        self.buy_gap = 153
+        self.shop_point = (window_A[0] + 975, window_A[1] + 396)
+        self.back_point = (window_A[0] + 1211, window_A[1] + 135)
+    def toShop(self):
+        sleep(0.1)
+        moveTo(self.shop_point)
+        click()
+
+    def back(self):
+        sleep(0.1)
+        moveTo(self.back_point)
+        click()
+
+    def isIron(self, num):
+        sleep(0.1)
+        return isSameColor(getPixel(self.iron_point[num-1]), color["玄铁"], 1)
+
+    def buy(self, num):
+        sleep(0.1)
+        moveTo(self.buy_point1[0] + self.buy_gap * (num-1), self.buy_point1[1])
+        click()

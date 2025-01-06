@@ -24,4 +24,4 @@ def control():
 
 sleep(5)
 
-strengthen()
+buyIron()

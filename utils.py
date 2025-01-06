@@ -61,3 +61,32 @@ def strengthen():
         p3.toPage()
         p3.readFile()
         p3.toFile(1)
+
+def buyIron():
+    def stop(num, flag, count):
+        if num == flag:
+            return num, count + 1
+        else:
+            return num, 0
+
+    s = SHOP()
+    s.toShop()
+    flag = 0
+    count = 0  # 连续buy(n)的次数，过多说明没有购买次数了
+    while count < 20:
+        if s.isIron(3):
+            flag, count = stop(3, flag, count)
+            s.buy(3)
+            continue
+        if s.isIron(2):
+            flag, count = stop(2, flag, count)
+            s.buy(2)
+            continue
+        if s.isIron(1):
+            flag, count = stop(1, flag, count)
+            s.buy(1)
+            continue
+        count = 0
+        s.back()
+        s.toShop()
+    print("Down.")

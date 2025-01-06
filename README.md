@@ -18,6 +18,10 @@
 
 **utils.py ->strengthen()**
 
+## 自动购买玄铁
+
+**utils.py ->buyIron()**
+
 *注：变量全在函数里面*
 
 ## Two tricks:
