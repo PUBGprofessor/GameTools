@@ -5,7 +5,7 @@ from params import *
 
 p2 = PAGE(2)
 p3 = PAGE(3)
-print(p2.bag.getATK())
+print(p2.bag.getFive(), end=',')
 # command_key = 'o'
 # # 定义一个实时获取键盘输入的程序
 # def get_command():

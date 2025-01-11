@@ -4,7 +4,7 @@ import pytesseract
 import PIL
 
 window_A = (721, 211)
-color = {"橙黄": (244, 147, 49), "白色": (255, 255, 255), "黑色" : (0, 0, 0), "玄铁": (152, 152, 152)}
+color = {"橙黄": (244, 147, 49), "白色": (255, 255, 255), "黑色": (0, 0, 0), "玄铁": (152, 152, 152)}
 
 def getText(box, font_color=None):
     image = screenshot()
@@ -25,6 +25,26 @@ def getText(box, font_color=None):
 
     return pytesseract.image_to_string(new_image, config=config)
     # return pytesseract.image_to_string(image, lang='chi_sim')
+
+def getTextCN(box, font_color=None):
+    image = screenshot()
+    # image = PIL.Image.open(r"C:\Users\xxx\Pictures\Screenshots\4.png")
+    image = image.crop(box)
+    # image.show()
+    image = image.convert('RGB')
+    tolerance = 45
+    image = np.array(image)
+    # print(image.shape)
+    if font_color != None:
+        image = 255*np.ones_like(image) * (np.mean(abs(image - font_color), axis=2, keepdims=True) < tolerance)
+
+    new_image = PIL.Image.fromarray(image)
+    new_image.convert('L')
+    # new_image.show()
+    # config = '--psm 6 --oem 1'
+
+    # return pytesseract.image_to_string(new_image, config=config)
+    return pytesseract.image_to_string(image, lang='chi_sim', config='--psm 13')
 
 def getPixel(point):
     sleep(0.05)
@@ -88,7 +108,11 @@ class BAG:
                     window_A[1] + self.ATK_R['loc'][1],
                     window_A[0] + self.ATK_R['loc'][0] + self.ATK_R['width'],
                     window_A[1] + self.ATK_R['loc'][1] + self.ATK_R['height'])
-
+        self.five_R = {'loc': (608, 583), 'width': 58, 'height': 24}
+        self.five_box = (window_A[0] + self.five_R['loc'][0],
+                        window_A[1] + self.five_R['loc'][1],
+                        window_A[0] + self.five_R['loc'][0] + self.five_R['width'],
+                        window_A[1] + self.five_R['loc'][1] + self.five_R['height'])
         self.column = {'装备': (1547, 427),
                '道具': (1658, 427),
                '时装': (1769, 427),
@@ -98,11 +122,13 @@ class BAG:
         self.grid_gap = (85, 89)
         self.first_grid = (1505, 522)
         self.make = (1214, 915)
-        self.result = (1047, 850)
+        self.stren_result = (1047, 850)
+        self.merge_result = (1184, 702)
         self.alt = {'强化': (861, 1062),
                     "合成": (980, 1062),
                     "打造": (1220, 1062)}
         self.goback = (2047, 257)
+        self.five = "金木水火土"
 
     def grid(self, x, y):
         return self.first_grid[0] + self.grid_gap[0] * (x-1), self.first_grid[1] + self.grid_gap[1] * (y-1)
@@ -119,7 +145,11 @@ class BAG:
 
     def toResult(self):
         sleep(0.1)
-        moveTo(self.result)
+        moveTo(self.stren_result)
+
+    def toMerge(self):
+        sleep(0.1)
+        moveTo(self.merge_result)
 
     def back(self):
         sleep(0.1)
@@ -144,6 +174,12 @@ class BAG:
 
     def getATK(self):
         return int(getText(self.ATK_box, color["橙黄"]))
+
+    def getFive(self):
+        str1 = getTextCN(self.five_box, color["白色"])
+        # print(str1)
+        result = ''.join([char for char in self.five if char in str1])
+        return result
 
 class SHOP:
     def __init__(self):

@@ -43,11 +43,11 @@ def strengthen():
     while 1:
         p3.toBag()
         p3.bag.toPage(2)
-        p3.bag.getGrid(3, 3)
+        p3.bag.getGrid(4, 3)
         p3.bag.toColumn("道具")
-        p3.bag.toPage(2)
-        p3.bag.getGrid(2, 5)
-        p3.bag.getGrid(2, 5)
+        p3.bag.toPage(3)
+        p3.bag.getGrid(2, 1)
+        p3.bag.getGrid(2, 1)
         p3.bag.makeIt()
         if isSameColor(getPixel((1438, 629)), color["黑色"]):
             print("强化失败")
@@ -90,3 +90,31 @@ def buyIron():
         s.back()
         s.toShop()
     print("Down.")
+
+def merge():
+    # 合成
+    p2 = PAGE(2)
+    p3 = PAGE(3)
+    while 1:
+        p3.toBag()
+        p3.bag.toAlt("合成")
+        p3.bag.toPage(3)
+        p3.bag.getGrid(1, 1)
+        p3.bag.toColumn("道具")
+        p3.bag.toPage(2)
+        p3.bag.getGrid(3, 5)
+        p3.bag.getGrid(3, 5)
+        p3.bag.makeIt()
+        p3.bag.toMerge()
+        result = p3.bag.getFive()
+        print(result)
+        if result == "金木":
+            print("Down.")
+            break
+        p3.bag.back()
+        p3.back()
+        p2.toPage()
+        p2.save()
+        p3.toPage()
+        p3.readFile()
+        p3.toFile(1)

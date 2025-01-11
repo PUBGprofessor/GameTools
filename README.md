@@ -22,6 +22,10 @@
 
 **utils.py ->buyIron()**
 
+### 自动合成指定五行法宝：
+
+**utils.py ->merge()**
+
 *注：变量全在函数里面*
 
 ## Two tricks:
